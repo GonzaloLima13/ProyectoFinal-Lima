@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descuentos</title>
+</head>
+<body>
+    <form name="formulario1">
+        <table style="text-align: left; margin-left: auto; margin-right: auto;">
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="montoVenta">Chequea la consola para ver el catalogo, y en base a eso, pon el precio de lo que vale tu eleccion para calcular tu descuento</label>
+                    </td>
+                    <td>
+                        <input name="montoVenta" required="required" type="number" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input value="Procesar" type="button" onclick="descuentos();" />
+                        <input type="reset" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="descuento">Valor de descuento:</label>
+                    </td>
+                    <td>
+                        <input name="descuento" type="number" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="montoTotal">Valor de monto total a pagar:</label>
+                    </td>
+                    <td>
+                        <input name="montoTotal" type="number" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <p>Has elegido:</p>
+    <script src="script.js"></script>
+</body>
+</html>
