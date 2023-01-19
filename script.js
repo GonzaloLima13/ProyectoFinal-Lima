@@ -1,16 +1,45 @@
-let preciosFijos = [500,1500,4500,6500]
-function Accesorio(tipo, peso, color,precio){ 
-	this.Tipo = tipo;
-	this.Peso = peso;
-	this.Color = color;
-    this.Precio = precio;
+//Array de objetos
+class Prendas{
+    constructor(tipo, marca, talle, color, precio){
+        this.tipo = tipo;
+        this.marca = marca;
+        this.talle = talle;
+        this.color = color;
+        this.precio = precio;
+    }
 }
-let remera = new Accesorio("Remera", "200g","Negro","$"+preciosFijos[0]);
-let pantalon = new Accesorio("Pantalon", "650g","Rojo","$"+preciosFijos[1]);
-let short = new Accesorio("Short Nike ", "150g","Rosa","$"+preciosFijos[2]);
-let smartwatch = new Accesorio("Smartwatch Samsung", "100g","Azul","$"+preciosFijos[3]);
-console.log(remera,pantalon,short,smartwatch)
 
+const prendas = []
+
+prendas.push(new Prendas("Camiseta", "Nike", "XL", "Negro", 2500))
+prendas.push(new Prendas("Pantalon", "Adidas", "XXL", "Azul", 3500))
+prendas.push(new Prendas("Bufanda", "Generica", "5", "Gris", 500))
+prendas.push(new Prendas("Zapatos", "Nike", "42", "Rosa", 9500))
+prendas.push(new Prendas("Gorra", "Toto", "10", "Negro", 1560))
+prendas.push(new Prendas("Medias Deportivas", "Nike", "XL", "Negro", 1500))
+prendas.push(new Prendas("Short", "Generico", "XXL", "Negro", 2550))
+
+//Prenda a agregar en la lista del array
+let newPrenda = 1
+while (newPrenda < 2){
+    let pregunta = new Prendas((prompt("Ingresa tipo de prenda")), 
+            (prompt("Ingresa su marca")),
+            (prompt("Ingresa el Talle")), 
+            (prompt("Ingresa el Color")), 
+            Number(prompt("Ponle su Precio")))
+            prendas.push(pregunta)
+    newPrenda++
+}
+
+console.log(prendas)
+
+// Filtrar precios menores a $3000
+function filtrarPorPrecio(precio){
+    return prendas.filter(propiedad => propiedad.precio <= Number(precio))
+}
+console.log(filtrarPorPrecio(3000))
+
+//Calcular descuentos para las prendas. (Interactivo)
 function descuentos(){
     let descuento, montoVenta, montoTotal;
     montoVenta = Number(document.formulario1.montoVenta.value);
@@ -25,3 +54,4 @@ function descuentos(){
     document.formulario1.descuento.value = descuento;
     document.formulario1.montoTotal.value = montoTotal;
 }
+
