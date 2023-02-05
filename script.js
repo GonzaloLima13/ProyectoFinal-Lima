@@ -1,3 +1,46 @@
+//Minilogin LocalStorage
+const recuerdame = document.querySelector(".recuerda");
+const olvidame = document.querySelector(".olvidar");
+const main = document.querySelector("main");
+const getName = document.querySelector("#userInput");
+const btnLogear = document.querySelector("#btnLogin");
+const btnOlvidar = document.querySelector("#olvidarNombre");
+
+const h1 = document.querySelector("h1");
+const saludo = document.querySelector(".saludo-personal");
+
+
+  btnLogear.addEventListener("click", function () {
+    localStorage.setItem("name", getName.value);
+  
+    nameDisplayCheck();
+  });
+  
+  btnOlvidar.addEventListener("click", function () {
+    localStorage.removeItem("name");
+  
+    nameDisplayCheck();
+  });
+  
+  function nameDisplayCheck() {
+    if (localStorage.getItem("name")) {
+      let name = localStorage.getItem("name");
+      h1.textContent = `Un gusto volvernos a encontrar ${name}!`;
+      saludo.textContent = `Bienvenido al sitio, ${name}! Recuerda chequear la consola y el LS para ver los precios de cada producto.`;
+  
+      olvidame.style.display = "block";
+      recuerdame.style.display = "none";
+    } else {
+      h1.textContent = `Bienvenido a la calculadora de precios! `;
+      saludo.textContent = `Recuerda logearte antes de proceder con el uso de la calculadora!`;
+  
+      olvidame.style.display = "none";
+      recuerdame.style.display = "block";
+    }
+  }
+  
+  document.body.onload = nameDisplayCheck;
+
 //Array de objetos
 class Prendas{
     constructor(tipo, marca, talle, color, precio){
@@ -19,21 +62,10 @@ prendas.push(new Prendas("Gorra", "Toto", "10", "Negro", 1560))
 prendas.push(new Prendas("Medias Deportivas", "Nike", "XL", "Negro", 1500))
 prendas.push(new Prendas("Short", "Generico", "XXL", "Negro", 2550))
 
-//Prenda a agregar en la lista del array
-let newPrenda = 1
-while (newPrenda < 2){
-    let pregunta = new Prendas((prompt("Ingresa tipo de prenda")), 
-            (prompt("Ingresa su marca")),
-            (prompt("Ingresa el Talle")), 
-            (prompt("Ingresa el Color")), 
-            Number(prompt("Ponle su Precio")))
-            prendas.push(pregunta)
-    newPrenda++
-}
-
 console.log(prendas)
-
+localStorage.setItem('prendas', JSON.stringify(prendas));
 // Filtrar precios menores a $3000
+
 function filtrarPorPrecio(precio){
     return prendas.filter(propiedad => propiedad.precio <= Number(precio))
 }
