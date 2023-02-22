@@ -31,7 +31,7 @@ const saludo = document.querySelector(".saludo-personal");
       olvidame.style.display = "block";
       recuerdame.style.display = "none";
     } else {
-      h1.textContent = `Bienvenido a la calculadora de precios! `;
+      h1.textContent = `Bienvenido a la calculadora de descuentos! `;
       saludo.textContent = `Recuerda logearte antes de proceder con el uso de la calculadora!`;
   
       olvidame.style.display = "none";
@@ -62,14 +62,31 @@ prendas.push(new Prendas("Gorra", "Toto", "10", "Negro", 1560))
 prendas.push(new Prendas("Medias Deportivas", "Nike", "XL", "Negro", 1500))
 prendas.push(new Prendas("Short", "Generico", "XXL", "Negro", 2550))
 
-console.log(prendas)
 localStorage.setItem('prendas', JSON.stringify(prendas));
 // Filtrar precios menores a $3000
 
 function filtrarPorPrecio(precio){
     return prendas.filter(propiedad => propiedad.precio <= Number(precio))
 }
-console.log(filtrarPorPrecio(3000))
+
+//Async de los arrays, después de 3s aparecen en la consola
+function getData() {
+  return new Promise((resolve, reject) => {
+    if (prendas.lenght === 0){
+      reject(new Error('Data is empty'))
+    }
+    setTimeout(() => {
+     resolve(prendas);
+    }, 3000)
+  })
+}
+
+async function fetchingData(){
+  const esperar = await getData();
+  console.log(prendas);
+  console.log(filtrarPorPrecio(3000));
+}
+fetchingData();
 
 //Calcular descuentos para las prendas. (Interactivo)
 function descuentos(){
@@ -86,4 +103,85 @@ function descuentos(){
     document.formulario1.descuento.value = descuento;
     document.formulario1.montoTotal.value = montoTotal;
 }
+
+//Toastify 'Procesar'
+let boton1 = document.getElementById("inputProcesar")
+boton1.addEventListener("click", procesa)
+function procesa(){
+  Toastify({
+    text: "Tu descuento se ha calculado correctamente.",
+    duration: 2500,
+    gravity: "bottom",
+    position: "center",
+    style: {
+      background: "linear-gradient(83.2deg, rgb(150, 93, 233) 10.8%, rgb(99, 88, 238) 94.3%)"
+    }
+  }).showToast()
+}
+
+//Toastify 'Restablecer'
+let boton2 = document.getElementById("inputRestablecer")
+boton2.addEventListener("click", reset)
+function reset(){
+  Toastify({
+    text: "Has borrado todo el valor introducido y recibido.",
+    duration: 2500,
+    gravity: "bottom",
+    position: "center",
+    style: {
+      background: "linear-gradient(83.2deg, rgb(150, 93, 233) 10.8%, rgb(99, 88, 238) 94.3%)"
+    }
+  }).showToast()
+}
+
+//Toastify 'Login'
+let botonLogin = document.getElementById("btnLogin")
+botonLogin.addEventListener("click", login)
+function login(){
+  Toastify({
+    text: "Te has logeado correctamente :D",
+    duration: 2500,
+    gravity: "bottom",
+    position: "center",
+    style: {
+      background: "linear-gradient(83.2deg, rgb(150, 93, 233) 10.8%, rgb(99, 88, 238) 94.3%)"
+    }
+  }).showToast()
+}
+
+//Toastify 'Logout'
+let botonLogout = document.getElementById("olvidarNombre")
+botonLogout.addEventListener("click", logout)
+function logout(){
+  Toastify({
+    text: "Te has deslogeado, vuelve porfi :´(",
+    duration: 2500,
+    gravity: "bottom",
+    position: "center",
+    style: {
+      background: "linear-gradient(83.2deg, rgb(150, 93, 233) 10.8%, rgb(99, 88, 238) 94.3%)"
+    }
+  }).showToast()
+}
+
+//REST API (Fetch a 6 usuarios de una API)
+
+  fetch('https://reqres.in/api/users')
+  .then(response => response.json())
+  .then(json => console.log(json))
+
+//CREAR UN USUARIO EN LA REST API
+  fetch('https://reqres.in/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Gonzalo'
+    })
+}).then(res => {
+  return res.json()
+})
+  .then(data => console.log(data))
+  .catch(error => console.log('ERROR'))
 
